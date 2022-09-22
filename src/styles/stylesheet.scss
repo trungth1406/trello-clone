@@ -1,0 +1,34 @@
+$main-bg: #113753;
+$secondary-bg: #05b4ee;
+$card-bg: #d9def9;
+$main-font: 'Montserrat', sans-serif;
+$color-black: #000;
+$color-red: #f00;
+
+
+@mixin flex-container($direction, $justify : center, $align) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: center;
+  padding: 0 .5em;
+  gap: 1em;
+}
+
+@mixin card($max-width) {
+  width: $max-width;
+  height: 100%;
+  padding: .25em;
+  border-radius: 4px;
+  background-color: $card-bg;
+}
+
+@mixin button($border-color, $border-width) {
+  background-color: transparent;
+  padding: .25em;
+  border: $border-color solid $border-width;
+  border-radius: 2px;
+  width: 100%;
+  font-weight: 500;
+
+}

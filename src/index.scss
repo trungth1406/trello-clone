@@ -1,0 +1,11 @@
+@import "styles/stylesheet.scss";
+@import "styles/_topmenu.scss";
+@import "styles/_main.scss";
+
+body {
+  margin: 0;
+  font-family: $main-font;
+  background-color: $main-bg;
+  height: 100%;
+}
+

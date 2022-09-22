@@ -1,0 +1,26 @@
+@import "stylesheet";
+
+
+.header-container {
+  height: 4em;
+  background-color: $secondary-bg;
+  position: relative;
+  top: 0;
+  @include flex-container(row, space-between, center);
+
+
+  .app-logo {
+    height: 100%;
+    width: 100%;
+  }
+
+  .action-buttons-container {
+    flex: 1 0 auto;
+
+    button {
+      @include button($color-black, 2px);
+      padding: .25em 1em;
+    }
+  }
+
+}

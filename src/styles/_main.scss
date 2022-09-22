@@ -1,0 +1,40 @@
+@import "stylesheet";
+
+
+.main-container {
+  padding: .5em .25em 0 .25em;
+
+
+  .card-list {
+    @include flex-container(row, flex-start, center);
+    gap: 1em;
+
+
+    .card-container {
+      @include flex-container(column, center, center);
+      @include card(20em);
+
+      .card-header {
+        padding: 0 !important;
+        margin: .5em;
+      }
+
+      .card-item {
+        @include flex-container(row, space-between, center);
+        width: 100%;
+        padding: .5em;
+
+        .card-item-name {
+          font-weight: 500;
+        }
+
+        .item-actions {
+          @include flex-container(row, space-between, center);
+        }
+      }
+
+    }
+
+  }
+
+}
