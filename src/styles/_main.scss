@@ -6,20 +6,21 @@
 
 
   .card-list {
-    @include flex-container(row, flex-start, center);
+    @include flex-container(row, flex-start, flex-start);
 
 
     .card-container {
       @include flex-container(column, center, center);
       @include card(20em);
 
+
       .card-header {
-        padding: 0 !important;
+        padding: 0 .5em;
         margin: .5em;
       }
 
       .card-item-list {
-        @include flex-container(row, center, center);
+        @include flex-container(column, center, center);
         width: 100%;
 
         .card-item {
@@ -63,7 +64,8 @@
       .card-item-form {
         @include flex-container(row, space-between, flex-end);
         width: 95%;
-        padding: 0 1em;
+        padding: 0 1em 1em 0em;
+        position: relative;
 
 
         button {

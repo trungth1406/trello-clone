@@ -30,6 +30,7 @@ $color-white: #fff;
   margin: 0 !important;
   background-color: $color-white;
   border-radius: 4px;
+  cursor: grab;
 }
 
 
@@ -37,7 +38,7 @@ $color-white: #fff;
   border: none;
   border-bottom: 1px solid $secondary-bg;
   background-color: transparent;
-  width: 100%;
+  width: 90%;
   padding: .5em;
   font-size: large;
   font-weight: 500;
@@ -103,5 +104,13 @@ input:focus {
   outline: none;
 }
 
+span {
+  position: absolute;
+  top: 3.25em;
+  font-size: small;
+}
 
+span.error {
+  color: $color-red;
+}
 
