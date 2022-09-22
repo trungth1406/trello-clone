@@ -7,7 +7,6 @@
 
   .card-list {
     @include flex-container(row, flex-start, center);
-    gap: 1em;
 
 
     .card-container {
@@ -19,22 +18,52 @@
         margin: .5em;
       }
 
-      .card-item {
-        @include flex-container(row, space-between, center);
+      .card-item-list {
+        @include flex-container(row, center, center);
+        padding: 0 !important;
+        margin: 0 .25em !important;
         width: 100%;
-        padding: .5em;
 
-        .card-item-name {
-          font-weight: 500;
-        }
+        .card-item {
+          @include card-item;
 
-        .item-actions {
-          @include flex-container(row, space-between, center);
+          .card-item-header {
+            font-weight: 500;
+            font-size: large;
+            flex: 1 0 auto;
+            margin: 0 !important;
+            padding: .5em;
+            text-overflow-ellipsis: true;
+          }
+
+          .item-actions-container {
+
+            .item-actions {
+              flex: 1 0 10%;
+            }
+
+            .item-actions, button {
+              @include common-icon-button;
+            }
+          }
+
+
         }
       }
 
+
     }
 
+  }
+
+  .add-card-button {
+    @include common-icon-button;
+    border-radius: 100%;
+    width: 3em;
+    height: 3em;
+    background-color: $secondary-bg;
+    border: none;
+    align-self: start;
   }
 
 }

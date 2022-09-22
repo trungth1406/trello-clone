@@ -18,7 +18,7 @@
     flex: 1 0 auto;
 
     button {
-      @include button($color-black, 2px);
+      @include common-button($color-black, 2px);
       padding: .25em 1em;
     }
   }

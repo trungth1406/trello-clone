@@ -1,6 +1,7 @@
 import Card from "./Card";
 import {useState} from "react";
 import {CardModel} from "../../models/card-model";
+import AddCardButton from "../AddCardButton";
 
 const DEFAULT_CARD: CardModel = {
     name: null,
@@ -12,5 +13,6 @@ export default function CardList() {
     return (
         <ul className='card-list'>
             {cards.map((card, index) => <Card key={index} card={card}/>)}
+            <AddCardButton />
         </ul>)
 }

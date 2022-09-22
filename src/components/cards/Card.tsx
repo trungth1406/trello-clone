@@ -1,4 +1,4 @@
-import CardItemList from "./card-item/CardItemList";
+import CardItemList from "./card-items/CardItemList";
 
 export default function Card({card}) {
     return (<section className='card-container'>
