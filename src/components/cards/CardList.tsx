@@ -1,7 +1,7 @@
 import Card from "./Card";
 import {useState} from "react";
 import {CardModel} from "../../models/card-model";
-import AddCardButton from "../AddCardButton";
+import AddCardButton from "./AddCardButton";
 
 const DEFAULT_CARD: CardModel = {
     name: null,

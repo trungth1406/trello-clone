@@ -1,13 +1,11 @@
 export default function CardItem({cardItem}) {
 
     return (<li className='card-item'>
-        <h4 className='item-header'>Card Item Title</h4>
+        <h4 className='item-header'>Card Item TitleCard Item TitleCard Item TitleCard Item Title</h4>
         <section className="item-actions-container">
-            <button className='item-actions'>
-                <i className="fa fa-pen"></i>
+            <button id='edit_btn' className='item-actions'>
             </button>
-            <button className='item-actions'>
-                <i className="fa fa-trash"></i>
+            <button id='delete_btn' className='item-actions'>
             </button>
         </section>
     </li>)

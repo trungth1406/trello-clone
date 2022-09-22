@@ -7,12 +7,12 @@ $color-red: #f00;
 $color-white: #fff;
 
 
-@mixin flex-container($direction, $justify : center, $align: center) {
+@mixin flex-container($direction, $justify : center, $align: center , $padding:  0 .5em) {
   display: flex;
   flex-direction: $direction;
   justify-content: $justify;
   align-items: $align;
-  padding: 0 .5em;
+  padding: $padding;
   gap: 1em;
 }
 
@@ -25,7 +25,7 @@ $color-white: #fff;
 }
 
 @mixin card-item {
-  @include flex-container(row, space-between, center);
+  @include flex-container(row, space-between, center, -1em);
   width: 100%;
   margin: 0 !important;
   background-color: $color-white;
@@ -33,20 +33,75 @@ $color-white: #fff;
 }
 
 
-@mixin common-icon-button() {
+@mixin underline-input {
+  border: none;
+  border-bottom: 1px solid $secondary-bg;
+  background-color: transparent;
+  width: 100%;
+  padding: .5em;
+  font-size: large;
+  font-weight: 500;
+}
+
+
+@mixin common-icon-button($content: "") {
   background-color: transparent;
   border: none;
   width: 2em;
   height: 2em;
   cursor: pointer;
+
+  &::after {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+
+    @if $content == "+" {
+      content: $content;
+      font-size: x-large;
+    }
+
+
+  }
 }
 
 @mixin common-button($border-color, $border-width) {
   @include common-icon-button;
   padding: .25em;
   border: $border-color solid $border-width;
-  border-radius: 2px;
+  border-radius: 4px;
   width: 100%;
   font-weight: 500;
-
 }
+
+@mixin hidden-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+@mixin img-button($img-url) {
+  background-image: url($img-url);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 1.25em;
+}
+
+
+input {
+  @include underline-input;
+}
+
+input:focus {
+  outline: none;
+}
+
+
+

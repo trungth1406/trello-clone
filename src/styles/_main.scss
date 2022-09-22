@@ -20,44 +20,72 @@
 
       .card-item-list {
         @include flex-container(row, center, center);
-        padding: 0 !important;
-        margin: 0 .25em !important;
         width: 100%;
 
         .card-item {
           @include card-item;
 
-          .card-item-header {
-            font-weight: 500;
-            font-size: large;
-            flex: 1 0 auto;
+          .item-header {
+            @include hidden-text;
+            font-weight: 700;
+            font-size: medium;
+            flex: 1 0 30%;
             margin: 0 !important;
-            padding: .5em;
-            text-overflow-ellipsis: true;
+            padding: 1em;
+
           }
 
           .item-actions-container {
+            margin-right: .5em;
 
-            .item-actions {
+            button {
               flex: 1 0 10%;
+              @include common-icon-button;
+
             }
 
-            .item-actions, button {
-              @include common-icon-button;
+            button#edit_btn {
+              @include img-button("../assets/pen.svg")
             }
+
+            button#delete_btn {
+              @include img-button("../assets/delete.svg")
+            }
+
+
           }
 
 
         }
+
       }
 
+      .card-item-form {
+        @include flex-container(row, space-between, flex-end);
+        width: 95%;
+        padding: 0 1em;
 
+
+        button {
+          @include common-icon-button("+");
+        }
+
+
+      }
+
+      .delete-card-button {
+
+        button {
+          @include common-button($color-red, 1px);
+          padding: .25em 1em;
+        }
+      }
     }
 
   }
 
   .add-card-button {
-    @include common-icon-button;
+    @include common-icon-button("+");
     border-radius: 100%;
     width: 3em;
     height: 3em;
