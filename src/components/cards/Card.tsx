@@ -31,7 +31,7 @@ export default function Card({card, onCardDelete}) {
 
 
 
-    return (<section className='card-container'>
+    return (<li className='card-container'>
         {isEditing ? <input type="text"
                             className='card-title'
                             placeholder='Card Title'
@@ -42,5 +42,5 @@ export default function Card({card, onCardDelete}) {
         <section className='delete-card-button' onClick={deleteCard}>
             <button id='delete_btn'>Delete</button>
         </section>
-    </section>)
+    </li>)
 }

@@ -1,7 +1,7 @@
-import Card from "./Card";
+import Card from "../Card";
 import {useState} from "react";
-import {CardModel, CommonModel} from "../../models/card-model";
-import AddCardButton from "./AddCardButton";
+import {CardModel} from "../../../models/card-model";
+import AddCardButton from "../AddCardButton";
 
 const DEFAULT_CARD: CardModel = {
     id: Math.random(),

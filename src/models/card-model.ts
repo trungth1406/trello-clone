@@ -7,3 +7,9 @@ export interface CommonModel {
 export interface CardModel extends CommonModel {
     items?: CommonModel[];
 }
+
+
+export interface TaskRef {
+    ref: any;
+    data: CommonModel;
+}

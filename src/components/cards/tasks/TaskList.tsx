@@ -1,44 +1,60 @@
 import Task from "./Task";
-import {useState} from "react";
 import AddTaskForm from "./AddTaskForm";
+import {TaskRef} from "../../../models/card-model";
+import {createRef, useReducer} from "react";
+import {TaskActionTypes, taskReducer, TaskState} from "./store/taskReducer";
+
+const INITIAL_STATE: TaskState = {taskList: []};
 
 export default function TaskList({cardDetail}) {
 
-    const [tasks, setTasks] = useState(cardDetail.items || []);
+
+    const [taskData, dispatch] = useReducer(
+        taskReducer, INITIAL_STATE
+    )
+
+
     const addNewTask = (taskName) => {
-        setTasks(last => [...last, {
-            id: Math.random(),
-            name: taskName,
-        }]);
+        dispatch({
+            type: TaskActionTypes.ADD_SINGLE_TASK,
+            payload: [{ref: createRef(), data: {id: Math.random(), name: taskName}}]
+        })
+
     }
     const updateTasks = (item, newName) => {
-        setTasks(prevTasks => {
-            return prevTasks.map((task) => {
-                if (task === item) {
-                    task.name = newName;
-                }
-                return task;
-            });
-        });
+        const existing = taskData.taskList.find(t => t === item);
+        existing.data.name = newName;
+        dispatch({
+            type: TaskActionTypes.UPDATE_TASK,
+            payload: [item]
+        })
     }
 
     const deleteTask = (item) => {
-        setTasks(prevTasks => prevTasks.filter(task => task !== item));
+        dispatch(
+            {
+                type: TaskActionTypes.DELETE_TASK,
+                payload: [item]
+            }
+        )
     }
+
 
     return (
         <>
             <ul className='card-item-list'>
-                {tasks.map((task, _) =>
+                {taskData && taskData.taskList.map((task: TaskRef, _) =>
                     <Task
-                        key={'taskNo' + task.id}
+                        key={'taskNo' + task.data.id}
                         taskItem={task}
                         updateTasks={updateTasks}
                         deleteTask={deleteTask}
-                    />)}
+                        innerRef={task.ref}
+                    />
+                )}
             </ul>
             {cardDetail.name && (<>
-                <AddTaskForm addNewTask={addNewTask}/>
+                <AddTaskForm key='addTaskForm' addNewTask={addNewTask}/>
             </>)}
         </>
     )

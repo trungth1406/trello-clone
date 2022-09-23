@@ -1,8 +1,19 @@
 import {useState} from "react";
 
-export default function Task({taskItem, updateTasks, deleteTask}) {
-    const [taskName, setTaskName] = useState(taskItem.name);
+
+export default function Task({taskItem, updateTasks, deleteTask, innerRef}) {
+    const [taskName, setTaskName] = useState(taskItem.data.name);
     const [isEditMode, setIsEditMode] = useState(false);
+    const [drag, setDrag] = useState({
+        isDragging: false,
+        origin: {
+            x: innerRef?.current?.offsetLeft,
+            y: innerRef?.current?.offsetTop
+        },
+        cursorRel: null
+    });
+
+
 
     const updateTaskName = (event) => {
         setTaskName(event.target.value);
@@ -26,16 +37,20 @@ export default function Task({taskItem, updateTasks, deleteTask}) {
     }
 
     const handleDragStart = (event) => {
-        event.dataTransfer.setData('text/plain', event.target.id);
-        event.dataTransfer.effectAllowed = 'move';
+        setDrag({
+            ...drag,
+            isDragging: true
+        })
     }
 
 
-    return (<li className='card-item'
-                onMouseDownCapture={(evt) => changeGrabState(evt, 'grab')}
-                onMouseUpCapture={(evt) => changeGrabState(evt, 'release')}
-                onMouseLeave={(evt) => changeGrabState(evt, 'release')}
-                onDragStart={handleDragStart}
+    return (<li
+        ref={innerRef}
+        className='card-item'
+        onMouseDownCapture={(evt) => changeGrabState(evt, 'grab')}
+        onMouseUpCapture={(evt) => changeGrabState(evt, 'release')}
+        onMouseLeave={(evt) => changeGrabState(evt, 'release')}
+        onDragStart={handleDragStart}
 
     >
         {isEditMode ?
@@ -44,7 +59,7 @@ export default function Task({taskItem, updateTasks, deleteTask}) {
                    onChange={updateTaskName}
                    onKeyDown={submitNewTaskName}/>
             :
-            <h4 className='item-header'>{taskItem.name}</h4>
+            <h4 className='item-header'>{taskItem.data.name}</h4>
         }
         <section className="item-actions-container">
             <button id='edit_btn' className='item-actions' onClick={() => setIsEditMode((prev) => !prev)}>

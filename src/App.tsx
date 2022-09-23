@@ -1,7 +1,7 @@
 import "./index.scss";
 import TopMenuBar from "./layout/TopMenuBar";
 import MainBody from "./layout/MainBody";
-import CardList from "./components/cards/CardList";
+import CardList from "./components/cards/card-list/CardList";
 
 const App = () => {
     return (
