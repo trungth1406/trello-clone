@@ -1,5 +1,7 @@
 import {useRef, useState} from "react";
 
+const errorMessage = 'Task name cannot be empty';
+
 export default function AddTaskForm({addNewTask}) {
     const [task, setTask] = useState('');
     const [error, setError] = useState('');
@@ -11,7 +13,7 @@ export default function AddTaskForm({addNewTask}) {
     }
 
     const updateTaskList = (evt) => {
-        if (evt.target.value !== '') {
+        if (inputRef.current.value !== '') {
             addNewTask(task);
             setTask('');
             inputRef.current.value = '';
@@ -25,7 +27,13 @@ export default function AddTaskForm({addNewTask}) {
         if (event.key === 'Enter') {
             updateTaskList(event);
         }
-        setError('');
+        if (inputRef.current.value === '') {
+            setError(errorMessage);
+        } else {
+            setError('');
+        }
+
+
     }
 
     return (
