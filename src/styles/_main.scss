@@ -21,7 +21,8 @@
 
       .card-item-list {
         @include flex-container(column, center, center);
-        width: 100%;
+        width: 95%;
+        position: relative;
 
         .card-item {
           @include card-item;

@@ -53,9 +53,9 @@ export default function TaskList({cardDetail}) {
                     />
                 )}
             </ul>
-            {cardDetail.name && (<>
+            {cardDetail.name && (
                 <AddTaskForm key='addTaskForm' addNewTask={addNewTask}/>
-            </>)}
+            )}
         </>
     )
 }

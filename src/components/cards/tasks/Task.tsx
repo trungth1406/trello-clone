@@ -1,18 +1,11 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useDraggable} from "./hooks/useDraggable";
 
 
 export default function Task({taskItem, updateTasks, deleteTask, innerRef}) {
     const [taskName, setTaskName] = useState(taskItem.data.name);
-    const [isEditMode, setIsEditMode] = useState(false);
-    const [drag, setDrag] = useState({
-        isDragging: false,
-        origin: {
-            x: innerRef?.current?.offsetLeft,
-            y: innerRef?.current?.offsetTop
-        },
-        cursorRel: null
-    });
-
+    const [isEditMode, setIsEditMode] = useState(false)
+    const {currentPos, dragging} = useDraggable(innerRef);
 
 
     const updateTaskName = (event) => {
@@ -36,12 +29,9 @@ export default function Task({taskItem, updateTasks, deleteTask, innerRef}) {
 
     }
 
-    const handleDragStart = (event) => {
-        setDrag({
-            ...drag,
-            isDragging: true
-        })
-    }
+    useEffect(() => {
+        console.log('currentPos', currentPos);
+    }, [currentPos])
 
 
     return (<li
@@ -50,8 +40,13 @@ export default function Task({taskItem, updateTasks, deleteTask, innerRef}) {
         onMouseDownCapture={(evt) => changeGrabState(evt, 'grab')}
         onMouseUpCapture={(evt) => changeGrabState(evt, 'release')}
         onMouseLeave={(evt) => changeGrabState(evt, 'release')}
-        onDragStart={handleDragStart}
-
+        style={
+            {
+                position: 'relative',
+                left: currentPos.x,
+                top: currentPos.y
+            }
+        }
     >
         {isEditMode ?
             <input id='edit_input' className='edit-input'
