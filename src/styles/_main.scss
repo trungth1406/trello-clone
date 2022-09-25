@@ -35,6 +35,11 @@
             @include card-item;
             z-index: 1000;
 
+            input {
+              margin: .5em;
+              z-index: 99999;
+            }
+
             .item-header {
               @include hidden-text;
               font-weight: 700;

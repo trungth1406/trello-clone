@@ -5,27 +5,37 @@ export const useDraggable = function (taskRef, parentRef, taskItem) {
     const [pressed, setPressed] = useState(false);
     const [currentPos, setCurrentPos] = useState({x: 0, y: 0});
     const [mousePos, setMousePos] = useState({x: 0, y: 0});
+
+
     useEffect(() => {
-        if (taskRef.current) {
-            taskRef.current.addEventListener('mouseleave', handleMouseLeave);
-            taskRef.current.addEventListener('mousedown', handleMouseDown)
+        let currentTaskRef = taskRef.current;
+        if (currentTaskRef) {
+            currentTaskRef.addEventListener('mouseleave', handleMouseLeave);
+            currentTaskRef.addEventListener('mousedown', handleMouseDown)
+        }
+        return () => {
+            if (currentTaskRef) {
+                currentTaskRef.removeEventListener('mouseleave', handleMouseLeave);
+                currentTaskRef.removeEventListener('mousedown', handleMouseDown)
+            }
         }
     }, []);
 
 
     useEffect(() => {
+        const currentTaskRef = taskRef.current;
         if (!pressed) {
             return;
         }
 
-        taskRef.current.addEventListener('mousemove', onMouseMove);
-        taskRef.current.addEventListener('mouseup', handleMouseUp);
-        taskRef.current.addEventListener('taskreset', handleTaskReset);
+        currentTaskRef.addEventListener('mousemove', onMouseMove);
+        currentTaskRef.addEventListener('mouseup', handleMouseUp);
+        currentTaskRef.addEventListener('taskreset', handleTaskReset);
 
         return () => {
-            taskRef.current.removeEventListener('mousemove', onMouseMove);
-            taskRef.current.removeEventListener('mouseup', handleMouseUp);
-            taskRef.current.removeEventListener('taskreset', handleTaskReset);
+            currentTaskRef.removeEventListener('mousemove', onMouseMove);
+            currentTaskRef.removeEventListener('mouseup', handleMouseUp);
+            currentTaskRef.removeEventListener('taskreset', handleTaskReset);
         }
     }, [pressed]);
 

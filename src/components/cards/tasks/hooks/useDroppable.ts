@@ -15,6 +15,7 @@ export const useDroppable = function (taskListRef) {
             rect2.bottom < rect1.top);
     }
     useEffect(() => {
+        const taskList = taskListRef.current;
 
         // Drag and drop within the same list
         const handleCurrentTaskDrop = (e) => {
@@ -40,7 +41,8 @@ export const useDroppable = function (taskListRef) {
 
             const dispatchOrigin = dispatchSource.current;
             const cardOrigin = taskListRef.current;
-            const taskRectOrigin = taskRef.current.getBoundingClientRect();
+
+            const taskRect = taskRef.current.getBoundingClientRect();
             const cardRect = cardOrigin.getBoundingClientRect();
 
             const dispatchRemove = () => {
@@ -51,15 +53,11 @@ export const useDroppable = function (taskListRef) {
                     }
                 }));
             }
-            if (isIntersecting(cardRect, taskRectOrigin)) {
-                if (dispatchOrigin !== cardOrigin) {
-                    dispatch({
-                        type: TaskActionTypes.MOVE_TASK,
-                        payload: [draggedItem]
-                    })
-                } else {
-                    dispatchRemove();
-                }
+            if (isIntersecting(cardRect, taskRect) && dispatchOrigin !== cardOrigin) {
+                dispatch({
+                    type: TaskActionTypes.MOVE_TASK,
+                    payload: [draggedItem]
+                })
             } else {
                 dispatchRemove();
             }
@@ -73,14 +71,16 @@ export const useDroppable = function (taskListRef) {
             })
         }
 
-        if (taskListRef.current) {
-            taskListRef.current.addEventListener('taskdrop', handleCurrentTaskDrop);
-            taskListRef.current.addEventListener('taskmoved', handleRemoveFromList);
+        if (taskList) {
+            taskList.addEventListener('taskdrop', handleCurrentTaskDrop);
+            taskList.addEventListener('taskmoved', handleRemoveFromList);
             document.addEventListener('taskdrop', handleGlobalTaskDrop);
         }
         return () => {
-            taskListRef.current.removeEventListener('taskdrop', handleCurrentTaskDrop);
-            taskListRef.current.removeEventListener('taskmoved', handleRemoveFromList);
+            if (taskList) {
+                taskList.removeEventListener('taskdrop', handleCurrentTaskDrop);
+                taskList.removeEventListener('taskmoved', handleRemoveFromList);
+            }
             document.removeEventListener('taskdrop', handleGlobalTaskDrop);
         }
     }, [taskListRef]);

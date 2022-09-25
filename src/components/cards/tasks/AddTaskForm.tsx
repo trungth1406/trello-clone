@@ -26,13 +26,15 @@ export default function AddTaskForm({addNewTask}) {
     const onKeyUp = (event) => {
         if (event.key === 'Enter') {
             updateTaskList(event);
-        }
-        if (inputRef.current.value === '') {
-            setError(errorMessage);
-        } else {
             setError('');
-        }
+        } else {
+            if (inputRef.current.value === '') {
+                setError(errorMessage);
+            } else {
+                setError('');
+            }
 
+        }
 
     }
 

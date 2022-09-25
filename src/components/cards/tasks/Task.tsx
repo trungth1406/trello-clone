@@ -1,11 +1,18 @@
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {useDraggable} from "./hooks/useDraggable";
 
 export default function Task({taskItem, updateTasks, deleteTask, innerRef, parentRef}) {
     const [taskName, setTaskName] = useState(taskItem.data.name);
     const [isEditMode, setIsEditMode] = useState(false)
     const {currentPos, pressed} = useDraggable(innerRef, parentRef, taskItem);
+    const inputRef = useRef<HTMLInputElement>();
 
+
+    useEffect(() => {
+        if (isEditMode) {
+            inputRef.current.focus();
+        }
+    }, [inputRef , isEditMode])
 
     const updateTaskName = (event) => {
         setTaskName(event.target.value);
@@ -16,6 +23,11 @@ export default function Task({taskItem, updateTasks, deleteTask, innerRef, paren
             updateTasks(taskItem, taskName);
             setIsEditMode(false);
         }
+    }
+
+
+    const handleInputOnClick = (event) => {
+        event.target.focus();
     }
 
     return (<section className='item-container'>
@@ -30,15 +42,17 @@ export default function Task({taskItem, updateTasks, deleteTask, innerRef, paren
                     cursor: pressed ? 'grabbing' : 'grab'
                 }
             }
+            onMouseDownCapture={(e) => e.preventDefault()}
         >
-            {!isEditMode &&
-                <h4 className='item-header'>{taskItem.data.name}</h4>
+            {!isEditMode ?
+                <h4 className='item-header'>{taskItem.data.name}</h4> :
+                <input id='edit_input' className='edit-input'
+                       ref={inputRef}
+                       value={taskName}
+                       onClick={handleInputOnClick}
+                       onChange={updateTaskName}
+                       onKeyDown={submitNewTaskName}/>
             }
-
-            {isEditMode && <input id='edit_input' className='edit-input'
-                                  value={taskName}
-                                  onChange={updateTaskName}
-                                  onKeyDown={submitNewTaskName}/>}
             <section className="item-actions-container">
                 <button id='edit_btn' className='item-actions' onClick={() => setIsEditMode((prev) => !prev)}>
                 </button>
