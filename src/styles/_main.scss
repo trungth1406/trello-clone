@@ -21,30 +21,42 @@
 
       .card-item-list {
         @include flex-container(column, center, center);
-        width: 95%;
+        width: 100%;
         position: relative;
         min-height: 5em;
 
-        .card-item {
-          @include card-item;
-          z-index: 1000;
 
-          .item-header {
-            @include hidden-text;
-            font-weight: 700;
-            font-size: medium;
-            flex: 1 0 30%;
-            margin: 0 !important;
-            padding: 1em;
+        .item-container {
+          @include flex-container(row, space-between, center);
+          width: 100%;
+          gap: 0 !important;
 
+          .card-item {
+            @include card-item;
+            z-index: 1000;
+
+            .item-header {
+              @include hidden-text;
+              font-weight: 700;
+              font-size: medium;
+              flex: 1 0 30%;
+              margin: 0 !important;
+              padding: 1em;
+
+            }
           }
 
           .item-actions-container {
             margin-right: .5em;
+            position: relative;
+            @include flex-container(row, flex-end, stretch);
+            background-color: $color-white;
+            height: 100%;
 
             button {
               flex: 1 0 10%;
               @include common-icon-button;
+              z-index: 99999;
 
             }
 
@@ -58,9 +70,8 @@
 
 
           }
-
-
         }
+
 
       }
 

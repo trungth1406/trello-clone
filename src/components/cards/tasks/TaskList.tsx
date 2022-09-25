@@ -9,7 +9,7 @@ export default function TaskList({cardDetail}) {
     const listRef = useRef<HTMLUListElement>(null);
 
 
-    const {taskData, dispatch} = useDroppable(listRef, cardDetail);
+    const {taskData, dispatch} = useDroppable(listRef);
 
 
     const addNewTask = (taskName) => {

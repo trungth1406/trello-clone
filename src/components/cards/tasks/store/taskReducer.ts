@@ -1,4 +1,5 @@
 import {TaskRef} from "../../../../models/card-model";
+import {createRef} from "react";
 
 
 export enum TaskActionTypes {
@@ -25,27 +26,34 @@ export const taskReducer = (state: TaskState, action: TaskAction): TaskState => 
                 taskList: [...state.taskList, ...action.payload]
             }
         case TaskActionTypes.DELETE_TASK:
-            return {
-                ...state,
-                taskList: state.taskList.filter(task => {
-                    return task !== action.payload[0];
-                })
+            const matched = state.taskList.filter((task) => {
+                return task === action.payload[0];
+            });
+            if (matched.length > 0) {
+                return {
+                    ...state,
+                    taskList: state.taskList.filter((task) => {
+                        return task !== action.payload[0];
+                    })
+                }
             }
+            return state;
         case TaskActionTypes.MOVE_TASK:
             const optionalOld = state.taskList.filter(task => {
                 return task === action.payload[0];
             })
             if (optionalOld.length > 0) {
-
                 return state;
             } else {
-                document.dispatchEvent(new CustomEvent('removefromlist', {
-                    detail: {
-                        optionalOld
-                    }
-                }));
+                const newItem = action.payload[0];
                 return {
-                    taskList: [...action.payload, ...state.taskList]
+                    taskList: [{
+                        ref: createRef(),
+                        data: {
+                            id: Math.random(),
+                            name: newItem.data.name
+                        }
+                    }, ...state.taskList]
                 }
             }
         case TaskActionTypes.UPDATE_TASK:

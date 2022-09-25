@@ -20,10 +20,12 @@ export const useDraggable = function (taskRef, parentRef, taskItem) {
 
         taskRef.current.addEventListener('mousemove', onMouseMove);
         taskRef.current.addEventListener('mouseup', handleMouseUp);
+        taskRef.current.addEventListener('taskreset', handleTaskReset);
 
         return () => {
             taskRef.current.removeEventListener('mousemove', onMouseMove);
             taskRef.current.removeEventListener('mouseup', handleMouseUp);
+            taskRef.current.removeEventListener('taskreset', handleTaskReset);
         }
     }, [pressed]);
 
@@ -32,26 +34,26 @@ export const useDraggable = function (taskRef, parentRef, taskItem) {
         setPressed(false);
     }
     const handleMouseDown = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
         setMousePos({
             x: e.pageX - currentPos.x,
             y: e.pageY - currentPos.y
         })
         setPressed(true);
+        e.preventDefault();
+        e.stopPropagation();
     }
 
 
     const handleMouseUp = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        const currentRect = taskRef.current.getBoundingClientRect();
-        document.dispatchEvent(new CustomEvent('taskdrop', {
+        parentRef.current.dispatchEvent(new CustomEvent('taskdrop', {
             detail: {
-                taskRect: currentRect,
+                taskRef: taskRef,
                 draggedItem: taskItem
             }
         }));
+
         setPressed(false);
     }
 
@@ -63,6 +65,10 @@ export const useDraggable = function (taskRef, parentRef, taskItem) {
             const y = e.pageY - mousePos.y;
             setCurrentPos({x, y});
         }
+    }
+
+    const handleTaskReset = (e) => {
+        setCurrentPos({x: null, y: null});
     }
 
 

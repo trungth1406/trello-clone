@@ -18,31 +18,33 @@ export default function Task({taskItem, updateTasks, deleteTask, innerRef, paren
         }
     }
 
-    return (<li
-        ref={innerRef}
-        className='card-item'
-        style={
-            {
-                position: 'relative',
-                left: currentPos.x,
-                top: currentPos.y,
-                cursor: pressed ? 'grabbing' : 'grab'
+    return (<section className='item-container'>
+        <li
+            ref={innerRef}
+            className='card-item'
+            style={
+                {
+                    position: 'relative',
+                    left: currentPos.x,
+                    top: currentPos.y,
+                    cursor: pressed ? 'grabbing' : 'grab'
+                }
             }
-        }
-    >
-        {isEditMode ?
-            <input id='edit_input' className='edit-input'
-                   value={taskName}
-                   onChange={updateTaskName}
-                   onKeyDown={submitNewTaskName}/>
-            :
-            <h4 className='item-header'>{taskItem.data.name}</h4>
-        }
-        <section className="item-actions-container">
-            <button id='edit_btn' className='item-actions' onClick={() => setIsEditMode((prev) => !prev)}>
-            </button>
-            <button id='delete_btn' className='item-actions' onClick={() => deleteTask(taskItem)}>
-            </button>
-        </section>
-    </li>)
+        >
+            {!isEditMode &&
+                <h4 className='item-header'>{taskItem.data.name}</h4>
+            }
+
+            {isEditMode && <input id='edit_input' className='edit-input'
+                                  value={taskName}
+                                  onChange={updateTaskName}
+                                  onKeyDown={submitNewTaskName}/>}
+            <section className="item-actions-container">
+                <button id='edit_btn' className='item-actions' onClick={() => setIsEditMode((prev) => !prev)}>
+                </button>
+                <button id='delete_btn' className='item-actions' onClick={() => deleteTask(taskItem)}>
+                </button>
+            </section>
+        </li>
+    </section>)
 }
