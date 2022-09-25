@@ -1,33 +1,36 @@
 import {useEffect, useState} from "react";
 
-export const useDraggable = function (taskRef) {
 
+export const useDraggable = function (taskRef, parentRef, taskItem) {
     const [pressed, setPressed] = useState(false);
     const [currentPos, setCurrentPos] = useState({x: 0, y: 0});
     const [mousePos, setMousePos] = useState({x: 0, y: 0});
-
     useEffect(() => {
         if (taskRef.current) {
-            taskRef.current.addEventListener('mouseleave', handleMouseUp);
+            taskRef.current.addEventListener('mouseleave', handleMouseLeave);
             taskRef.current.addEventListener('mousedown', handleMouseDown)
         }
     }, []);
+
 
     useEffect(() => {
         if (!pressed) {
             return;
         }
 
-        taskRef.current.addEventListener('mousemove', handleDragStart);
+        taskRef.current.addEventListener('mousemove', onMouseMove);
         taskRef.current.addEventListener('mouseup', handleMouseUp);
 
         return () => {
-            taskRef.current.removeEventListener('mousemove', handleDragStart);
+            taskRef.current.removeEventListener('mousemove', onMouseMove);
             taskRef.current.removeEventListener('mouseup', handleMouseUp);
         }
     }, [pressed]);
 
 
+    const handleMouseLeave = (e) => {
+        setPressed(false);
+    }
     const handleMouseDown = (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -38,17 +41,21 @@ export const useDraggable = function (taskRef) {
         setPressed(true);
     }
 
+
     const handleMouseUp = (e) => {
         e.preventDefault();
         e.stopPropagation();
+        const currentRect = taskRef.current.getBoundingClientRect();
+        document.dispatchEvent(new CustomEvent('taskdrop', {
+            detail: {
+                taskRect: currentRect,
+                draggedItem: taskItem
+            }
+        }));
         setPressed(false);
-        setCurrentPos({
-            x: null,
-            y: null
-        })
     }
 
-    const handleDragStart = (e) => {
+    const onMouseMove = (e) => {
         e.preventDefault();
         e.stopPropagation();
         if (pressed) {
@@ -58,5 +65,6 @@ export const useDraggable = function (taskRef) {
         }
     }
 
-    return {currentPos, dragging: pressed};
+
+    return {currentPos, pressed};
 }

@@ -99,6 +99,7 @@ $color-white: #fff;
 
 input {
   @include underline-input;
+  cursor: auto !important;
 }
 
 input:focus {

@@ -23,9 +23,11 @@
         @include flex-container(column, center, center);
         width: 95%;
         position: relative;
+        min-height: 5em;
 
         .card-item {
           @include card-item;
+          z-index: 1000;
 
           .item-header {
             @include hidden-text;

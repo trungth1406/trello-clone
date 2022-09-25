@@ -5,6 +5,7 @@ export enum TaskActionTypes {
     ADD_SINGLE_TASK = 'ADD_TASK',
     UPDATE_TASK = 'UPDATE_TASK',
     DELETE_TASK = 'DELETE_TASK',
+    MOVE_TASK = 'MOVE_TASK',
 }
 
 export interface TaskAction {
@@ -30,9 +31,27 @@ export const taskReducer = (state: TaskState, action: TaskAction): TaskState => 
                     return task !== action.payload[0];
                 })
             }
+        case TaskActionTypes.MOVE_TASK:
+            const optionalOld = state.taskList.filter(task => {
+                return task === action.payload[0];
+            })
+            if (optionalOld.length > 0) {
+
+                return state;
+            } else {
+                document.dispatchEvent(new CustomEvent('removefromlist', {
+                    detail: {
+                        optionalOld
+                    }
+                }));
+                return {
+                    taskList: [...action.payload, ...state.taskList]
+                }
+            }
         case TaskActionTypes.UPDATE_TASK:
         default:
             return state;
+
     }
 };
 

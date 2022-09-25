@@ -1,17 +1,15 @@
 import Task from "./Task";
 import AddTaskForm from "./AddTaskForm";
 import {TaskRef} from "../../../models/card-model";
-import {createRef, useReducer} from "react";
-import {TaskActionTypes, taskReducer, TaskState} from "./store/taskReducer";
-
-const INITIAL_STATE: TaskState = {taskList: []};
+import {createRef, useRef} from "react";
+import {TaskActionTypes} from "./store/taskReducer";
+import {useDroppable} from "./hooks/useDroppable";
 
 export default function TaskList({cardDetail}) {
+    const listRef = useRef<HTMLUListElement>(null);
 
 
-    const [taskData, dispatch] = useReducer(
-        taskReducer, INITIAL_STATE
-    )
+    const {taskData, dispatch} = useDroppable(listRef, cardDetail);
 
 
     const addNewTask = (taskName) => {
@@ -42,7 +40,7 @@ export default function TaskList({cardDetail}) {
 
     return (
         <>
-            <ul className='card-item-list'>
+            <ul className='card-item-list' ref={listRef}>
                 {taskData && taskData.taskList.map((task: TaskRef, _) =>
                     <Task
                         key={'taskNo' + task.data.id}
@@ -50,6 +48,7 @@ export default function TaskList({cardDetail}) {
                         updateTasks={updateTasks}
                         deleteTask={deleteTask}
                         innerRef={task.ref}
+                        parentRef={listRef}
                     />
                 )}
             </ul>
