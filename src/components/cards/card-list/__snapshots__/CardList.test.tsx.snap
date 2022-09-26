@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`When CardList mounted Should render a default card 1`] = `
+<ul
+  className="card-list"
+>
+  <li
+    className="card-container"
+    data-testid="card"
+  >
+    <h3
+      className="card-header"
+      data-testid="card_header"
+      onClick={[Function]}
+    >
+      Default Card
+    </h3>
+    <ul
+      className="card-item-list"
+      data-testid="task_list"
+    />
+    <section
+      className="card-item-form"
+    >
+      <input
+        data-testid="task_input"
+        onChange={[Function]}
+        onKeyUp={[Function]}
+        placeholder="Add Task"
+        type="text"
+      />
+      <button
+        className="add-card-item-button"
+        data-testid="add-task_btn"
+        onClick={[Function]}
+      />
+    </section>
+    <section
+      className="delete-card-button"
+      onClick={[Function]}
+    >
+      <button
+        data-testid="delete_btn"
+        id="delete_btn"
+      >
+        Delete
+      </button>
+    </section>
+  </li>
+  <button
+    className="add-card-button"
+    data-testid="add-card_btn"
+    id="add-card_btn"
+    onClick={[Function]}
+  >
+    <i
+      className="fa fa-plus"
+    />
+  </button>
+</ul>
+`;

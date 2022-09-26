@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`When Card component mounted Should show an input field to add a card title when the card name is null 1`] = `
+<li
+  className="card-container"
+  data-testid="card"
+>
+  <input
+    className="card-title"
+    data-testid="card_title_input"
+    onKeyDown={[Function]}
+    placeholder="Card Title"
+    type="text"
+  />
+  <section
+    className="delete-card-button"
+    onClick={[Function]}
+  >
+    <button
+      data-testid="delete_btn"
+      id="delete_btn"
+    >
+      Delete
+    </button>
+  </section>
+</li>
+`;

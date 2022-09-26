@@ -1,5 +1,5 @@
-import TaskList from "./tasks/TaskList";
 import {useEffect, useState} from "react";
+import TaskList from "./tasks/TaskList/TaskList";
 
 export default function Card({card, onCardDelete}) {
 
