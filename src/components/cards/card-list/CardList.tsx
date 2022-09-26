@@ -26,7 +26,7 @@ export default function CardList() {
 
     return (
         <ul className='card-list'>
-            {cards.map((card, index) => <Card key={'cardNo' + card.id} card={card} onCardDelete={deleteCard}/>)}
-            <AddCardButton onAddNewCard={addCard}/>
+            {cards.map((card, index) => <Card  key={'cardNo' + card.id} card={card} onCardDelete={deleteCard}/>)}
+            <AddCardButton  onAddNewCard={addCard}/>
         </ul>)
 }

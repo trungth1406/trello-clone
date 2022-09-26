@@ -31,8 +31,10 @@ export default function Card({card, onCardDelete}) {
 
 
 
-    return (<li className='card-container'>
-        {isEditing ? <input type="text"
+    return (<li className='card-container' data-testid='card'>
+        {isEditing ? <input
+                data-testid='card_title_input'
+                type="text"
                             className='card-title'
                             placeholder='Card Title'
                             onKeyDown={updateCardTitle}/> :
