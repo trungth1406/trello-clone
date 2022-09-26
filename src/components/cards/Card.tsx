@@ -30,19 +30,18 @@ export default function Card({card, onCardDelete}) {
     }
 
 
-
     return (<li className='card-container' data-testid='card'>
         {isEditing ? <input
                 data-testid='card_title_input'
                 type="text"
-                            className='card-title'
-                            placeholder='Card Title'
-                            onKeyDown={updateCardTitle}/> :
-            <h3 className='card-header' onClick={() => setIsEditing(prev => !prev)}>{cardDetail.name}</h3>
+                className='card-title'
+                placeholder='Card Title'
+                onKeyDown={updateCardTitle}/> :
+            <h3  data-testid='card_header' className='card-header' onClick={() => setIsEditing(prev => !prev)}>{cardDetail.name}</h3>
         }
         {cardDetail.name && <TaskList cardDetail={cardDetail}/>}
         <section className='delete-card-button' onClick={deleteCard}>
-            <button id='delete_btn'>Delete</button>
+            <button data-testid='delete_btn' id='delete_btn'>Delete</button>
         </section>
     </li>)
 }

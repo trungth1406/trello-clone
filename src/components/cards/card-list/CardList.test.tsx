@@ -30,19 +30,22 @@ describe('When CardList mounted', () => {
         // expect the card to have the header  equal to 'Default Card' with screen
         expect(screen.getByText('Default Card')).toBeInTheDocument();
 
+        expect(screen.getByTestId('delete_btn')).toBeTruthy();
+        expect(cardListTree).toMatchSnapshot();
     });
 
     // When click on the add card button, it should add a new card
     it('Should add a new card when click on the add card button', async () => {
-        // click on the add card button
-        render(<CardList/>);
-        act(() => {
-            screen.getByTestId('add-card_btn').click();
-        });
-        expect(screen.getAllByTestId('card')).toHaveLength(2);
-        // and expect it to match the snapshot
-        expect(cardListComponent.toJSON()).toMatchSnapshot();
-    });
+            // click on the add card button
+            render(<CardList/>);
+
+            act(() => {
+                screen.getByTestId('add-card_btn').click();
+            });
+
+            expect(screen.getAllByTestId('card')).toHaveLength(2);
+        }
+    );
 
 
 });
