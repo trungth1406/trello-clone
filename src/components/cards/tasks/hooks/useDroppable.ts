@@ -31,6 +31,7 @@ export const useDroppable = function (taskListRef) {
                         taskRef: taskRef
                     }
                 }));
+                document.dispatchEvent(new CustomEvent('taskresetpos'));
             } else {
                 taskRef.current.dispatchEvent(new CustomEvent('taskreset'));
             }
