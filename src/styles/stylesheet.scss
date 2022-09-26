@@ -116,3 +116,13 @@ span.error {
   color: $color-red;
 }
 
+
+.transition-down {
+  transition: all 50ms ease-in;
+  transform: translateY(3em);
+}
+
+.transition-up {
+  transition: all 50ms forwards ease-out;
+  transform: translateY(-3em);
+}
