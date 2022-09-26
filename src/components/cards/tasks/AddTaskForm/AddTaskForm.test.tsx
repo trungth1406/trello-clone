@@ -79,7 +79,7 @@ describe('AddTaskForm renders with a Card that already had a title', () => {
                     userEvent.keyboard('{enter}');
 
                     // state is updated
-                    expect(screen.getByTestId('task_input')).toHaveValue('A');
+                    expect(screen.getByTestId('task_input')).toHaveValue('');
 
                     expect(screen.queryByTestId('input_error')).not.toBeInTheDocument();
 

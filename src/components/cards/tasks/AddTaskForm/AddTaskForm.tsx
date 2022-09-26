@@ -1,6 +1,5 @@
 import { useRef, useState } from 'react';
 
-
 export default function AddTaskForm({ addNewTask }) {
     const [task, setTask] = useState('');
     const [error, setError] = useState(false);
@@ -18,10 +17,12 @@ export default function AddTaskForm({ addNewTask }) {
     const onKeyUp = (event) => {
         if (inputRef.current.value !== '') {
             if (event.key === 'Enter') {
+                setTask('');
+                inputRef.current.value = '';
                 updateTaskList();
             }
             setError(false);
-        } else  {
+        } else {
             setError(true);
         }
     };

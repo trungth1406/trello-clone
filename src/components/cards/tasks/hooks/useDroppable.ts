@@ -58,7 +58,6 @@ export const useDroppable = function (taskListRef) {
                     type: TaskActionTypes.MOVE_TASK,
                     payload: [draggedItem]
                 })
-                document.dispatchEvent(new CustomEvent('resetpos', {}));
             } else {
                 dispatchRemove();
             }
@@ -72,22 +71,19 @@ export const useDroppable = function (taskListRef) {
             })
         }
 
-        const resetPos = (e) => {
-            console.log(e.detail)
-        }
+        
 
         if (taskList) {
             taskList.addEventListener('taskdrop', handleCurrentTaskDrop);
             taskList.addEventListener('taskmoved', handleRemoveFromList);
             document.addEventListener('taskdrop', handleGlobalTaskDrop);
-            document.addEventListener('resetpos', resetPos);
         }
         return () => {
             if (taskList) {
                 taskList.removeEventListener('taskdrop', handleCurrentTaskDrop);
                 taskList.removeEventListener('taskmoved', handleRemoveFromList);
             }
-            document.removeEventListener('resetpos', resetPos);
+            document.removeEventListener('taskdrop', handleGlobalTaskDrop);
         }
     }, [taskListRef]);
 
